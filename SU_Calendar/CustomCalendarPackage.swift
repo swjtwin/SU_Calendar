@@ -2,6 +2,11 @@
 // https://docs.swift.org/swift-book
 import SwiftUI
 
+#Preview {
+    PlanCalendarView()
+}
+
+// 적용 예시
 struct PlanCalendarView: View {
     @StateObject private var calendarVM: CustomCalendarVM = .init()
     @Environment(\.dismiss) var dismiss
@@ -31,7 +36,7 @@ struct PlanCalendarView: View {
             VStack(spacing: 42) {
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Nation")
+                        Text("국가")
                             .foregroundStyle(Color.black)
                         HStack(spacing: 10) {
                             ForEach(1..<4) { index in
@@ -43,7 +48,7 @@ struct PlanCalendarView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("City")
+                        Text("도시")
                             .foregroundStyle(Color.black)
                         HStack(spacing: 10) {
                             ForEach(1..<4) { index in
@@ -61,10 +66,10 @@ struct PlanCalendarView: View {
                 // 상하 스크롤로 보여야 여행일정 짜는 캘린더의 목적에 어긋나지 않음.
                 VStack(alignment: .leading, spacing: 24) {
                     HStack {
-                        Text("Date")
+                        Text("일자 선택")
                         Spacer()
-                        Text("\(calendarVM.startDate)")
-                            .foregroundStyle(Color.blue)
+                        Text("\(calendarVM.startDate) \(calendarVM.endDate.isEmpty ? "" : "- \(calendarVM.endDate)")")
+                            .foregroundStyle(Color.gray)
                     }
                     
                     CustomCalendarMain(vm: calendarVM, calBefCnt: 20, calNextCnt: 5)
@@ -81,6 +86,7 @@ struct PlanCalendarView: View {
                                 .padding()
                                 .background {
                                     RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.pink)
                                 }
                         })
                     }
